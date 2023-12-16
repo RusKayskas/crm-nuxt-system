@@ -3,6 +3,7 @@
         <NuxtLink to="/">
            <NuxtImg class="mx-auto" src="/logo.svg" alt="" width="100px"></NuxtImg>
         </NuxtLink>
+        <UiButton>Send</UiButton>
     </aside>
 </template>
 

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@nuxt/image', '@nuxtjs/tailwindcss', 'shadcn-nuxt'],
   shadcn: {
-    prefix: '',
-    componentDir: './components/ui'
+    prefix: 'Ui',
+    componentDir: './components/Ui'
   }
 })
