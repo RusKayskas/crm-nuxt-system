@@ -28,6 +28,7 @@
     "appwrite": "^13.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
     "radix-vue": "^1.2.4",
     "tailwind-merge": "^2.1.0",
