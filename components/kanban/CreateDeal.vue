@@ -52,6 +52,8 @@ import { Functions } from 'appwrite';
       type: Functions
     },
   })
+
+  
 </script>
 
 <style>
