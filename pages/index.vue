@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import type { ICard, IColumn } from '@/components/kanban/kanban.types';
+// import type { ICard, IColumn } from '@/components/kanban/kanban.types';
 import { useKanbanQuery } from '@/components/kanban/useKanbanQuery';
+import { ref } from 'vue';
+import { convertCurrency } from '@/utils/convertCurrency';
+import dayjs from 'dayjs';
 
   useSeoMeta({
     title: 'Home | Nuxt Crm'
@@ -9,26 +12,32 @@ import { useKanbanQuery } from '@/components/kanban/useKanbanQuery';
   // const dragCardRef = ref< ICard | null >(null);
   // const sourceColumnRef = ref< IColumn | null >(null);
   //получаем нужные поля refetch служит для переобновления данных
-  const { data, isLoading, refetch } =  useKanbanQuery();
+  const { data, isLoading, refetch, } = useKanbanQuery();
+  // const { kanbanData } = ref(data);
 </script>
 <template>
   <div class="p-10">
     <h1 class="font-bold text-2xl mb-10">Главная Страница</h1>
     <div v-if="isLoading">Loading...</div>
     <div v-else>
-      <div class="grid grid-col-5 gap-16">
+      <div class="grid grid-cols-5 gap-6">
         <div v-for="column in data" :key="column.id">
           <div class="rounded bg-slate-700 py-5 mb-2 text-center"> 
             {{ column.name }}
           </div>
+          <UiCard v-for="card in column.items" :key="card.id" class="mb-3" draggable="true">
+            <UiCardHeader role="button">
+              <UiCardTitle> {{ card.name }} </UiCardTitle> 
+              <UiCardDescription>
+                {{ convertCurrency(card.price) }}
+              </UiCardDescription>
+            </UiCardHeader>
+            <UiCardContent class="text-xs">Компания {{ card.companyName }}</UiCardContent>
+            <UiCardFooter>{{ dayjs(card.$createdAt).format('DD MMMM YYYY') }}</UiCardFooter>
+          </UiCard>
         </div>
       </div>
 
-      <UiCard class="mb-3" draggable="true">
-        <UiCardHeader role="button">Name card</UiCardHeader>
-        <UiCardContent>Company</UiCardContent>
-        <UiCardFooter>Date</UiCardFooter>
-      </UiCard>
     </div>
   </div>
 </template>
