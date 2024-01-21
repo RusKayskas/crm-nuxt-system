@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
   import { useMutation } from '@tanstack/vue-query';
-import { Functions } from 'appwrite';
+  import { Functions } from 'appwrite';
   import { v4 as uuidv4 } from 'uuid';
   import { defineProps, ref } from 'vue';
   import { COLLECTION_DEALS, DB_ID } from '~/app.constans';
