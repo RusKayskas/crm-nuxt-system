@@ -5,7 +5,7 @@
       @click="isOpenForm = !isOpenForm">
 
       <Icon v-if="isOpenForm"
-        name="redix-icons:arrow-up"
+        name="radix-icons:arrow-up"
         class="fade-in-100 fade-out-0"
         size="25"
       ></Icon>
@@ -24,7 +24,6 @@
 
 <script lang="ts" setup>
   import { useMutation } from '@tanstack/vue-query';
-  import { Functions } from 'appwrite';
   import { v4 as uuidv4 } from 'uuid';
   import { defineProps, ref } from 'vue';
   import { COLLECTION_DEALS, DB_ID } from '~/app.constans';
@@ -49,23 +48,39 @@
       default: ''
     },
     refetch: {
-      type: Functions
+      type: Function
     },
   })
 
-  
+  interface IDealFormState extends Pick<IDeal, 'name' | 'price'> {
+    customers: {
+      email: string,
+      name: string
+    }
+    status: string
+  }
+
+
+  const { handleSubmit, defineField, handleReset } = useForm<IDealFormState>({
+    initialValues: {
+      status: props.status
+    }
+  })
+
+  const [name, nameAttrs] = defineField('name');
+  const [price, priceAttrs] = defineField('price');
+  const [customerEmail, customerEmailAttrs] = defineField('customers.email');
+  const [customerName, customerNameAttrs] = defineField('customers.name');
+   
 </script>
 
 <style>
   .input {
-    @apply border-[#161c26] mb-2 placeholder:text-[#748092]
-    focus: border-border transition-colors;
+    @apply border-[#161c26] mb-2 placeholder:text-[#748092] focus:border-border transition-colors;
   }
-  .btn {
-    @apply text-xs border py-1 px-2 border-[#161c26] 
-    :hover:border-[#482c65] transition-colors text-[#aebed5]
-    :hover:text-white;
-  }
+  /*.btn {
+    @apply text-xs border py-1 px-2 border-[#161c26] :hover:border-[#482c65] transition-colors text-[#aebed5] :hover:text-white;
+  }*/
   .form {
     @apply mb-3 block;
     animation: show 0.3s ease-in-out;
