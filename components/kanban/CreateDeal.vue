@@ -17,21 +17,51 @@
 
     </UiButton>  
   </div>
-  <form>
+  <form v-if="isOpenForm" @submit="onSubmit" class="form">
+    <UiInput 
+      placeholder="Name"
+      v-model="name"
+      v-bind="nameAttrs"
+      type="text"
+      class="input"
+    />
+    <UiInput 
+      placeholder="price"
+      v-model="price"
+      v-bind="priceAttrs"
+      type="text"
+      class="input"
+    />
+    <UiInput 
+      placeholder="Email"
+      v-model="customerEmail"
+      v-bind="customerEmailAttrs"
+      type="text"
+      class="input"
+    />
+    <UiInput 
+      placeholder="Company"
+      v-model="customerName"
+      v-bind="customerNameAttrs"
+      type="text"
+      class="input"
+    />
 
+    <UiButton class="btn" :disabled="isPending">
+      {{ isPending ? 'Загружается' : 'Добавить' }}
+    </UiButton>
   </form>
 </template>
 
 <script lang="ts" setup>
   import { useMutation } from '@tanstack/vue-query';
-  import { v4 as uuidv4 } from 'uuid';
-  import { defineProps, ref } from 'vue';
+  import { v4 as uuid } from 'uuid'
+  import { defineProps, ref, defineEmits } from 'vue';
   import { COLLECTION_DEALS, DB_ID } from '~/app.constans';
   import type { IDeal } from '~/types/deals.types';
 
   const isOpenForm = ref<boolean>(false);
-
-
+  const emit = defineEmits(['reload']);
   //метод pick из интерфейса берем поля необходимые нам поля
   interface IDealFormState extends Pick<IDeal, 'name' | 'price'> 
   {
@@ -52,14 +82,6 @@
     },
   })
 
-  interface IDealFormState extends Pick<IDeal, 'name' | 'price'> {
-    customers: {
-      email: string,
-      name: string
-    }
-    status: string
-  }
-
 
   const { handleSubmit, defineField, handleReset } = useForm<IDealFormState>({
     initialValues: {
@@ -71,7 +93,19 @@
   const [price, priceAttrs] = defineField('price');
   const [customerEmail, customerEmailAttrs] = defineField('customers.email');
   const [customerName, customerNameAttrs] = defineField('customers.name');
-   
+  
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['create a new deal'],
+    mutationFn: (data: IDealFormState) => DB.createDocument(DB_ID, COLLECTION_DEALS, uuid(), data),
+    onSuccess() {
+      props.refetch && props.refetch();
+      handleReset();
+    }
+  });
+
+  const onSubmit = handleSubmit(values => {
+    mutate(values);
+  });
 </script>
 
 <style>

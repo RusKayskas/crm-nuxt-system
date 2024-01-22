@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
   // const dragCardRef = ref< ICard | null >(null);
   // const sourceColumnRef = ref< IColumn | null >(null);
   //получаем нужные поля refetch служит для переобновления данных
-  const { data, isLoading, refetch, } = useKanbanQuery();
+  const { data, isLoading, refetch } = useKanbanQuery();
   // const { kanbanData } = ref(data);
 </script>
 <template>
