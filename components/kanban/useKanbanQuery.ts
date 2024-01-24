@@ -13,7 +13,10 @@ export function useKanbanQuery() {
      //получаем и записываем в колонку
     select(data) {
       //дублируем массив создаем на основе этого массива
-      const newBoard = [...KANBAN_DATA];
+      const newBoard: IColumn[] = KANBAN_DATA.map(column => ({
+        ...column,
+        items: [],
+      }))
       //конвертируем в нужную нам коллекцию
       //принудительно указыввем что это является сделками
       const deals = data.documents as unknown as IDeal[];
