@@ -1,7 +1,7 @@
 <template>
   <div class="text-center mb-2">
     <UiButton 
-      class="transition-all opacity-5 hover:opacity-100 hover:text-[#a252c8]" 
+      class="transition-all opacity-6 hover:opacity-100 hover:text-[#a252c8]" 
       @click="isOpenForm = !isOpenForm">
 
       <Icon v-if="isOpenForm"
@@ -48,7 +48,7 @@
     />
 
     <UiButton class="btn" :disabled="isPending">
-      {{ isPending ? 'Загружается' : 'Добавить' }}
+      {{ isPending ? 'Loading...' : 'Add' }}
     </UiButton>
   </form>
 </template>

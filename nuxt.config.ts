@@ -16,8 +16,8 @@ export default defineNuxtConfig({
       },
     },
   ],
-  'nuxt-icon',
   '@pinia/nuxt',
+  'nuxt-icon',
   [
     '@vee-validate/nuxt',
     {

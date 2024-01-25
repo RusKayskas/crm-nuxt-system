@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/vue-query";
 import { COLLECTION_DEALS, DB_ID } from "~/app.constans";
 import { KANBAN_DATA } from "./kanban.data";
 import type { IDeal } from "~/types/deals.types";
+import type { IColumn } from "./kanban.types";
 
 //запрос к бд на получение всех карточек и состояний
 export function useKanbanQuery() {
