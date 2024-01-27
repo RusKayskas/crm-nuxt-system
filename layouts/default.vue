@@ -5,7 +5,6 @@ import { useAuthStore, useIsLoadingStore } from '@/store/auth.store';
 const isLoadingStore = useIsLoadingStore();
 const authStore = useAuthStore();
 const router = useRouter();
-
 onMounted(async() => {
   try {
     //получаем юзера и если есть юзер записываем в store

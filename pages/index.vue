@@ -9,6 +9,7 @@ import { useMutation } from '@tanstack/vue-query';
 import { COLLECTION_DEALS, DB_ID } from '~/app.constans';
 import type { ICard, IColumn } from '~/components/kanban/kanban.types';
 import { generateColumnStyle } from '~/components/kanban/generate-gradient';
+import { useDealSlideStore } from '@/store/deals-slide.store';
   useSeoMeta({
     title: 'Home | Nuxt Crm'
   });
@@ -17,6 +18,7 @@ import { generateColumnStyle } from '~/components/kanban/generate-gradient';
   const sourceColumnRef = ref< IColumn | null >(null);
   //получаем нужные поля refetch служит для переобновления данных
   const { data, isLoading, refetch } = useKanbanQuery();
+  const store = useDealSlideStore();
   // const { kanbanData } = ref(data);
 
  type TypeMutationVariables = {
@@ -69,7 +71,7 @@ import { generateColumnStyle } from '~/components/kanban/generate-gradient';
           <UiCard v-for="card in column.items" :key="card.id" class="mb-3" draggable="true"
             @dragstart="() => handleDragStart(card, column)"
           >
-            <UiCardHeader role="button">
+            <UiCardHeader role="button" @click="store.set(card)">
               <UiCardTitle> {{ card.name }} </UiCardTitle> 
               <UiCardDescription>
                 {{ convertCurrency(card.price) }}
@@ -80,7 +82,7 @@ import { generateColumnStyle } from '~/components/kanban/generate-gradient';
           </UiCard>
         </div>
       </div>
-
+      <KanbanSlideoverSlideOver />
     </div>
   </div>
 </template>
