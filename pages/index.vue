@@ -78,7 +78,7 @@ import { useDealSlideStore } from '@/store/deals-slide.store';
               </UiCardDescription>
             </UiCardHeader>
             <UiCardContent class="text-xs">Компания {{ card.companyName }}</UiCardContent>
-            <UiCardFooter>{{ dayjs(card.$createdAt).format('DD MMMM YYYY') }}</UiCardFooter>
+            <UiCardFooter>{{ dayjs(card.$createdAt).locale('ru').format('DD MMMM YYYY') }}</UiCardFooter>
           </UiCard>
         </div>
       </div>
