@@ -114,12 +114,13 @@
   watchEffect(() => {
   const initialData = data.value as unknown as ICustomerFormState;
   setValues({
-    email: initialData.email,
-    avatar_url: initialData.avatar_url,
-    from_source: initialData.from_source || '',
-    name: initialData.name
+    email: initialData?.email,
+    avatar_url: initialData?.avatar_url,
+    from_source: initialData?.from_source || '',
+    name: initialData?.name
   });
 });
+
 </script>
 
 <style scoped>
