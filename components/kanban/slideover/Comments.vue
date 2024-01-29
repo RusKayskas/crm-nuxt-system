@@ -21,9 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-  // import { useDealSlideStore } from '@/store/deals-slide.store';
-  // const store = useDealSlideStore();
-
   import dayjs from 'dayjs';
   import type { IDeal } from '~/types/deals.types';
   import { useCommentsByDeal } from './useComments';
