@@ -76,13 +76,13 @@
 
 
   const route = useRoute();
-  const customerId = route.params.id.replace('}','') as string
-  console.log('customerId', customerId)
+  const customerId = route.params.id as string
+  const customerIdRep = customerId.replace('}','')
   const { handleSubmit, defineField, setFieldValue, setValues, values } = useForm<ICustomerFormState>()
 
-  const {data, isSuccess} = useQuery({
-    queryKey: ['get customer', customerId],
-    queryFn: () => DB.getDocument(DB_ID, COLLECTION_CUSTOMERS, customerId),
+  const {data} = useQuery({
+    queryKey: ['get customer', customerIdRep],
+    queryFn: () => DB.getDocument(DB_ID, COLLECTION_CUSTOMERS, customerIdRep),
   })
 
   
@@ -92,9 +92,9 @@
   const [fromSource, fromSourceAttrs] = defineField('from_source');
 
   const {mutate, isPending} = useMutation({
-    mutationKey: ['update customer', customerId],
+    mutationKey: ['update customer', customerIdRep],
     mutationFn: (data:ICustomerFormState) => 
-      DB.updateDocument(DB_ID, COLLECTION_CUSTOMERS, customerId, data) 
+      DB.updateDocument(DB_ID, COLLECTION_CUSTOMERS, customerIdRep, data) 
   })
 
   //upload image
